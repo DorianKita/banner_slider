@@ -10,11 +10,13 @@ const slideList = [{
     img: "./img/third.jpg",
     txt: "Just like i did :)"
 }];
-const time = 2000
+const time = 4000
 const slider = document.querySelector(".slider");
 const h1 = document.querySelector("h1");
 const dots = [...document.querySelectorAll(".dots span")];
 let activeSlide = 0;
+
+
 
 
 const changeDot = () => {
@@ -45,6 +47,7 @@ document.body.addEventListener("keydown", (e) => {
         slider.setAttribute("src", slideList[activeSlide].img);
         h1.textContent = slideList[activeSlide].txt;
         changeDot();
+        intervalIndex = setInterval(changeSlide, time);
 
     } else if (e.keyCode == 39) {
         clearInterval(intervalIndex)
@@ -56,9 +59,9 @@ document.body.addEventListener("keydown", (e) => {
         slider.setAttribute("src", slideList[activeSlide].img);
         h1.textContent = slideList[activeSlide].txt;
         changeDot();
+        intervalIndex = setInterval(changeSlide, time);
     }
-    var intervalIndex = setInterval(changeSlide, time);
     console.log(activeSlide)
 })
 
-const intervalIndex = setInterval(changeSlide, time);
+let intervalIndex = setInterval(changeSlide, time);
