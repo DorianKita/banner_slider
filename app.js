@@ -33,4 +33,32 @@ const changeSlide = () => {
     changeDot()
 };
 
-setInterval(changeSlide, time);
+document.body.addEventListener("keydown", (e) => {
+    clearInterval(intervalIndex);
+    if (e.keyCode == 37) {
+        clearInterval(intervalIndex);
+        if (activeSlide == 0) {
+            activeSlide = slideList.length
+        }
+
+        activeSlide--;
+        slider.setAttribute("src", slideList[activeSlide].img);
+        h1.textContent = slideList[activeSlide].txt;
+        changeDot();
+
+    } else if (e.keyCode == 39) {
+        clearInterval(intervalIndex)
+        activeSlide++;
+        if (activeSlide == slideList.length) {
+            activeSlide = 0
+        }
+
+        slider.setAttribute("src", slideList[activeSlide].img);
+        h1.textContent = slideList[activeSlide].txt;
+        changeDot();
+    }
+    var intervalIndex = setInterval(changeSlide, time);
+    console.log(activeSlide)
+})
+
+const intervalIndex = setInterval(changeSlide, time);
