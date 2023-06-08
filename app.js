@@ -10,16 +10,27 @@ const slideList = [{
     img: "./img/third.jpg",
     txt: "Just like i did :)"
 }];
-
+const time = 2000
 const slider = document.querySelector(".slider");
 const h1 = document.querySelector("h1");
-let index = 1
-const changeSlide = () => {
-    if (index == slideList.length) index = 0;
-    slider.setAttribute("src", slideList[index].img)
-    h1.textContent = slideList[index].txt
+const dots = [...document.querySelectorAll(".dots span")];
+let activeSlide = 0;
 
-    index++;
+
+const changeDot = () => {
+    const activeDot = dots.findIndex(dot => dot.classList.contains("active"));
+    dots[activeDot].classList.remove("active")
+    dots[activeSlide].classList.add("active")
 };
 
-setInterval(changeSlide, 2000);
+const changeSlide = () => {
+    activeSlide++;
+    if (activeSlide == slideList.length) activeSlide = 0;
+    slider.setAttribute("src", slideList[activeSlide].img)
+    h1.textContent = slideList[activeSlide].txt
+
+
+    changeDot()
+};
+
+setInterval(changeSlide, time);
