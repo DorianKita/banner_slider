@@ -4,19 +4,40 @@ const slideList = [{
 },
 {
     img: "./img/second.jpg",
-    txt: "You just need to learn a lot!"
+    txt: "You just need to chill and code a lot"
 },
 {
     img: "./img/third.jpg",
     txt: "Just like i did :)"
 }];
-const time = 4000
+const time = 4300
 const slider = document.querySelector(".slider");
 const h1 = document.querySelector("h1");
 const dots = [...document.querySelectorAll(".dots span")];
 let activeSlide = 0;
+let wordIndex = 0;
+let txtIndex = -10;
+index = 0
 
+const typing = () => {
+    if (txtIndex >= 0) {
+        h1.textContent += slideList[wordIndex].txt[txtIndex]
+    }
+    txtIndex++
+    if (txtIndex == slideList[wordIndex].txt.length) {
+        wordIndex++
+        if (wordIndex == slideList.length) return
+        txtIndex = 0
 
+        return setTimeout(() => {
+            h1.textContent = ""
+            typing()
+        }, 540)
+
+    }
+
+    setTimeout(typing, 100)
+};
 
 
 const changeDot = () => {
@@ -29,13 +50,18 @@ const changeSlide = () => {
     activeSlide++;
     if (activeSlide == slideList.length) activeSlide = 0;
     slider.setAttribute("src", slideList[activeSlide].img)
-    h1.textContent = slideList[activeSlide].txt
+    index++;
+    if (index > 2) {
+        h1.textContent = slideList[activeSlide].txt
+    }
+
+
 
 
     changeDot()
 };
 
-document.body.addEventListener("keydown", (e) => {
+const keyFunction = (e) => {
     clearInterval(intervalIndex);
     if (e.keyCode == 37) {
         clearInterval(intervalIndex);
@@ -62,6 +88,10 @@ document.body.addEventListener("keydown", (e) => {
         intervalIndex = setInterval(changeSlide, time);
     }
     console.log(activeSlide)
-})
+}
+
+
+document.body.addEventListener("keydown", keyFunction)
 
 let intervalIndex = setInterval(changeSlide, time);
+typing()
